@@ -40,7 +40,7 @@ export function getItem(id) {
 }
 
 export function saveItem(item) {
-  let itemInDb = items.find(i => i._id === item._id) || {};
+  let itemInDb = items.find(i => i.id === item.id) || {};
   itemInDb.name = item.name;
   itemInDb.price = item.price;
 
@@ -52,7 +52,7 @@ export function saveItem(item) {
 }
 
 export function deleteItem(id) {
-  let itemInDb = items.find(i => i._id === id);
+  let itemInDb = items.find(i => i.id === id);
   items.splice(items.indexOf(itemInDb), 1);
   return itemInDb;
 }
