@@ -42,30 +42,47 @@ class AddItem extends Component {
 
   render() {
     return (
-      <div>
-        <form id="addItem" onSubmit={this.doSubmit}>
-          <input
-            type="text"
-            name="name"
-            onChange={evt => this.handleChange(evt)}
-          />
-          <input
-            type="number"
-            name="price"
-            onChange={evt => this.handleChange(evt)}
-          />
-          <button
-            type="button"
-            className="btn btn-primary btn-sm m-2"
-            onClick={this.doSubmit}
-          >
-            Add Item
-          </button>
-          <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
-            Back to POS
-          </Link>
-        </form>
-      </div>
+      <React.Fragment>
+        <nav className="navbar sticky-top navbar-light bg-light">
+          <a className="navbar-brand">SimplePOS</a>
+        </nav>
+        <div>
+          <form id="addItem" onSubmit={this.doSubmit}>
+            <div className="form-group m-6">
+              <label>
+                Name:
+                <input
+                  type="text"
+                  className="form-control m-6"
+                  name="name"
+                  onChange={evt => this.handleChange(evt)}
+                />
+              </label>
+            </div>
+            <div className="form-group m-6">
+              <label>
+                Price
+                <input
+                  type="number"
+                  className="form-control"
+                  name="price"
+                  onChange={evt => this.handleChange(evt)}
+                />
+              </label>
+            </div>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm m-2"
+              onClick={this.doSubmit}
+            >
+              Add Item
+            </button>
+            <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
+              Back to POS
+            </Link>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

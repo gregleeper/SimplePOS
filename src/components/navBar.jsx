@@ -16,21 +16,21 @@ class NavBar extends Component {
           </span>
           <button
             onClick={this.props.onReset}
-            className="btn btn-primary btn-sm m-2"
+            className="btn btn-primary btn-sm m-1"
           >
             Reset
           </button>
         </a>
         <Link
           to={{ pathname: "/additem", state: { addItem } }}
-          className="btn btn-primary btn-sm m-2"
+          className="btn btn-primary btn-sm"
         >
           Add Item
         </Link>
         <Link
           to="/total"
           onClick={() => this.props.onTotal(this.props.total)}
-          className="btn btn-primary btn-sm m-2"
+          className="btn btn-primary btn-sm"
         >
           Total
         </Link>

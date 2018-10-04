@@ -1,7 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2px;
   grid-auto-columns: auto;
   padding: 0%;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
