@@ -52,7 +52,11 @@ class PointOfSale extends Component {
   };
 
   handleReset = () => {
-    //Todo
+    const items = this.state.items.map(i => {
+      i.qty = 0;
+      return i;
+    });
+    this.setState({ items });
   };
   handleDelete = itemId => {
     console.log("Event handler called", itemId);
@@ -67,10 +71,10 @@ class PointOfSale extends Component {
   render() {
     //Todo these two idtem need to be fixed.
     const totalItems = this.state.items
-      .map(m => m.value)
+      .map(m => m.qty)
       .reduce((accum, curr) => accum + curr, 0);
     const totalPrice = this.state.items.reduce(
-      (accum, curr) => (accum += curr.value * curr.price),
+      (accum, curr) => (accum += curr.qty * curr.price),
       0
     );
 
@@ -79,6 +83,7 @@ class PointOfSale extends Component {
         <NavBar
           totalItems={totalItems}
           totalPrice={totalPrice}
+          onReset={this.handleReset}
           onTotal={this.handleTotal}
           addItem={this.handleAddItem}
         />
