@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AddItem from "./addItem";
 
+//Todo need to fix the total quatitiy display and total price
+// display in NavBar. These are the two span elements under
+// the SimplePOS navbar-brand.
 class NavBar extends Component {
   render() {
     const { addItem } = this.props;

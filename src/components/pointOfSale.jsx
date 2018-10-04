@@ -52,7 +52,7 @@ class PointOfSale extends Component {
   };
 
   handleReset = () => {
-    db.table("items").clear();
+    //Todo
   };
   handleDelete = itemId => {
     console.log("Event handler called", itemId);
@@ -60,21 +60,12 @@ class PointOfSale extends Component {
     this.setState({ items });
   };
 
-  // handleTotal = total => {
-  //   db.table("items")
-  //     .update(id, { qty })
-  //     .then(() => {
-  //       const itemToInc = this.state.items.find(item => item.id === id);
-  //       const newQty = this.state.item.qty;
-  //       const newList = [
-  //         ...this.state.items.filter(item => item.id !== id),
-  //         Object.assign({}, itemToInc, { newQty })
-  //       ];
-  //       this.setState({ items: newList });
-  //     });
-  // };
+  handldeTotal = total => {
+    //Todo
+  };
 
   render() {
+    //Todo these two idtem need to be fixed.
     const totalItems = this.state.items
       .map(m => m.value)
       .reduce((accum, curr) => accum + curr, 0);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "../components/navBar";
 import db from "../services/db";
-
+//Todo this whole component needs to fixed
 class CompleteTransaction extends Component {
   state = { transactions: [] };
 
