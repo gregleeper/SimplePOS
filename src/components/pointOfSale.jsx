@@ -6,7 +6,8 @@ import db from "../services/db";
 
 class PointOfSale extends Component {
   state = {
-    items: []
+    items: [],
+    tranactions: []
   };
 
   componentDidMount() {
@@ -16,10 +17,16 @@ class PointOfSale extends Component {
         this.setState({ items });
         console.log(this.state.items);
       });
+    db.table("totals")
+      .toArray()
+      .then(totals => {
+        this.setState({ totals });
+        console.log(this.state.totals);
+      });
   }
 
   findWithAttr(array, attr, value) {
-    for (var i = 0; i < array.length; i += 1) {
+    for (var i = 0; i <= array.length; i += 1) {
       if (array[i][attr] === value) {
         return i;
       }
@@ -29,26 +36,41 @@ class PointOfSale extends Component {
 
   handleIncrement = id => {
     console.log(id);
-    console.log(this.state.items[0]);
-    console.log(this.state.items[0].qty);
     const items = [...this.state.items];
     console.log(this.state.items);
     const index = this.findWithAttr(items, "id", id);
+    if (index === -1) {
+      console.log("Found -1");
+    }
     items[index].qty++;
     console.log("new qty is: ", items[index].qty);
     this.setState({ items });
+    db.transaction("rw", db.items, async () => {
+      db.items.put({
+        name: items[index].name,
+        price: items[index].price,
+        qty: items[index].qty,
+        id: items[index].id
+      });
+    });
   };
 
   handleDecrement = id => {
     console.log(id);
-    console.log(this.state.items[0]);
-    console.log(this.state.items[0].qty);
     const items = [...this.state.items];
     console.log(this.state.items);
     const index = this.findWithAttr(items, "id", id);
     items[index].qty--;
     console.log("new qty is: ", items[index].qty);
     this.setState({ items });
+    db.transaction("rw", db.items, async () => {
+      db.items.put({
+        name: items[index].name,
+        price: items[index].price,
+        qty: items[index].qty,
+        id: items[index].id
+      });
+    });
   };
 
   handleReset = () => {
@@ -57,15 +79,31 @@ class PointOfSale extends Component {
       return i;
     });
     this.setState({ items });
-  };
-  handleDelete = itemId => {
-    console.log("Event handler called", itemId);
-    const items = this.state.items.filter(c => c.id !== itemId);
-    this.setState({ items });
+    for (let i = 0; i < items.length; ++i) {
+      db.items.put({
+        name: items[i].name,
+        price: items[i].price,
+        qty: 0,
+        id: items[i].id
+      });
+    }
   };
 
-  handldeTotal = total => {
-    //Todo
+  handleDelete = itemId => {
+    //console.log("Event handler called", itemId);
+    const items = [...this.state.items];
+    const index = this.findWithAttr(items, "id", itemId);
+    items[index].qty = 0;
+    //const items = this.state.items.filter(c => c.id !== itemId);
+    this.setState({ items });
+    db.transaction("rw", db.items, async () => {
+      db.items.put({
+        name: items[index].name,
+        price: items[index].price,
+        qty: 0,
+        id: items[index].id
+      });
+    });
   };
 
   render() {

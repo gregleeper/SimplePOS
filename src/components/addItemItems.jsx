@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Item from "./item";
+import Item from "./itemAddItems";
 
 class Items extends Component {
   render() {
@@ -10,10 +10,8 @@ class Items extends Component {
             key={item.id}
             names={this.props.items.name}
             price={this.props.items.price}
-            onDelete={this.props.onDelete}
-            onIncrement={this.props.onIncrement}
-            onDecrement={this.props.onDecrement}
             item={item}
+            onDelete={this.props.onDelete}
           />
         ))}
       </div>

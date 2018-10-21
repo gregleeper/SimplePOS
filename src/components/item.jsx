@@ -29,7 +29,7 @@ class Item extends Component {
             onClick={() => onDelete(item.id)}
             className="btn btn-danger btn-lg"
           >
-            X
+            Clear
           </button>
         </div>
       </div>

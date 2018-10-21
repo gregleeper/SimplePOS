@@ -4,6 +4,7 @@ import "./App.css";
 import PointOfSale from "./components/pointOfSale";
 import CompleteTransaction from "./components/completeTransaction";
 import AddItem from "./components/addItem";
+import Transactions from "./components/transactions";
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Route path="/total" component={CompleteTransaction} />
           <Route path="/pointofsale" component={PointOfSale} />
           <Route path="/additem" component={AddItem} />
+          <Route path="/review" component={Transactions} />
           <Redirect path="/" exact to="/pointofsale" />
         </Switch>
       </React.Fragment>

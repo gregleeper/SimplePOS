@@ -1,18 +1,27 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import db from "../services/db";
+import Items from "./addItemItems";
+import "../App.css";
 
 class AddItem extends Component {
   constructor() {
     super();
-    this.state = { name: "", price: "" };
+    this.state = { name: "", price: "", items: [] };
   }
 
   componentDidMount() {
     db.table("items")
       .toArray()
       .then(items => {
-        console.log(items);
+        this.setState({ items });
+      });
+  }
+
+  componentDidUpdate() {
+    db.table("items")
+      .toArray()
+      .then(items => {
         this.setState({ items });
       });
   }
@@ -27,6 +36,20 @@ class AddItem extends Component {
       console.error(err.stack || err);
     });
   }
+
+  handleDelete = itemId => {
+    console.log("Event handler called", itemId);
+    const items = this.state.items.filter(c => c.id !== itemId);
+    this.setState({ items });
+    db.transaction("rw", db.items, function() {
+      db.items
+        .where("id")
+        .equals(itemId)
+        .delete();
+    }).catch(function(err) {
+      console.error(err.stack || err);
+    });
+  };
 
   handleChange(evt) {
     this.setState({
@@ -81,6 +104,18 @@ class AddItem extends Component {
               Back to POS
             </Link>
           </form>
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-6">
+                <Items
+                  items={this.state.items}
+                  names={this.state.items.name}
+                  prices={this.state.items.price}
+                  onDelete={this.handleDelete}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </React.Fragment>
     );

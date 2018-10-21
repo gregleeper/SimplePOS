@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
-    const { addItem, totalItems, totalPrice } = this.props;
+    const { addItem, totalItems, totalPrice, total } = this.props;
     return (
       <nav className="navbar sticky-top navbar-light bg-light">
         <a className="navbar-brand">
@@ -18,7 +18,7 @@ class NavBar extends Component {
             onClick={this.props.onReset}
             className="btn btn-primary btn-sm m-1"
           >
-            Reset
+            Clear
           </button>
         </a>
         <Link
@@ -27,9 +27,12 @@ class NavBar extends Component {
         >
           Add Item
         </Link>
+        <Link to={{ pathname: "/review" }} className="btn btn-primary btn-sm">
+          Review
+        </Link>
         <Link
           to="/total"
-          onClick={() => this.props.onTotal(this.props.total)}
+          onClick={() => this.props.onTotal(total)}
           className="btn btn-primary btn-sm"
         >
           Total
