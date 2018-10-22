@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../App.css";
-import NavBar from "../components/navBar";
 import db from "../services/db";
 import TransactionsTable from "./transactionsTable";
 
@@ -17,7 +16,7 @@ class Transactions extends Component {
       });
   }
   render() {
-    const { transactions } = this.state;
+    //const { transactions } = this.state;
     // // const rendertransactions = () => {
     // //   if (transactions.length === 0) {
     // //     return <p>No Transactions found</p>;

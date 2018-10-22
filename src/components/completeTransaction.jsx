@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import NavBar from "../components/navBar";
 import db from "../services/db";
 import ItemsTable from "./itemsTable";
-import { Modal, Button } from "react-bootstrap";
-//Todo this whole component needs to fixed
+import { Link } from "react-router-dom";
+
 class CompleteTransaction extends Component {
   state = { items: [], total: 0 };
 
@@ -32,6 +31,8 @@ class CompleteTransaction extends Component {
     }).catch(function(err) {
       console.error(err.stack || err);
     });
+    // using setTimeoult to call the doSubmit method after a 100ms delay
+    // gives the handleCompleteTransaction method time to complete before doSubmit starts
     setTimeout(this.doSubmit, 100);
   };
 
@@ -60,16 +61,23 @@ class CompleteTransaction extends Component {
       (accum, curr) => (accum += curr.qty * curr.price),
       0
     );
+    const zero = totalItems === 0;
 
     return (
       <React.Fragment>
-        <NavBar onTotal={this.handleTotal} />
+        <nav className="navbar sticky-top navbar-light bg-light">
+          <a className="navbar-brand">SimplePOS</a>
+          <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
+            Back to POS
+          </Link>
+        </nav>
         <div>
-          <h1>Total Price</h1>
+          <h1>Total Due</h1>
           <h6>${totalPrice}</h6>
           <h1>Total Items</h1>
           <h6>{totalItems}</h6>
           <button
+            disabled={zero}
             type="button"
             className="btn btn-primary btn-sm m-2"
             onClick={this.handleCompleteTransaction}

@@ -26,7 +26,9 @@ class TransactionsTable extends Component {
               </tr>
             </thead>
             <tbody>
-              <td>${totalSales}</td>
+              <tr>
+                <td>${totalSales}</td>
+              </tr>
             </tbody>
           </table>
           <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
