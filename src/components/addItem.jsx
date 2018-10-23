@@ -106,7 +106,7 @@ class AddItem extends Component {
           </form>
           <div className="container">
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col-sm-12">
                 <Items
                   items={this.state.items}
                   names={this.state.items.name}
