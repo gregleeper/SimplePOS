@@ -4,12 +4,23 @@ import db from "../services/db";
 import Items from "./addItemItems";
 import "../App.css";
 
+// This class is used to input items to be sold from the user
+
 class AddItem extends Component {
   constructor() {
     super();
-    this.state = { name: "", price: "", items: [] };
+    this.state = {
+      name: "",
+      price: "",
+      items: [],
+      formErrors: { name: "", price: "" },
+      nameValid: false,
+      priceValid: false,
+      formValid: false
+    };
   }
 
+  // mounts the items table on page render
   componentDidMount() {
     db.table("items")
       .toArray()
@@ -18,6 +29,8 @@ class AddItem extends Component {
       });
   }
 
+  // uses lifecycle component to render items on lifecycle update
+  // such as the add items and delete items handlers
   componentDidUpdate() {
     db.table("items")
       .toArray()
@@ -26,6 +39,8 @@ class AddItem extends Component {
       });
   }
 
+  // inserts the obejct inputted by the user into the items table
+  // and sets the qty to 0
   handleAddItem(name, price) {
     db.open();
     console.log("name", name, price);
@@ -37,6 +52,7 @@ class AddItem extends Component {
     });
   }
 
+  // removes the item with given id from the items table
   handleDelete = itemId => {
     console.log("Event handler called", itemId);
     const items = this.state.items.filter(c => c.id !== itemId);
@@ -51,12 +67,15 @@ class AddItem extends Component {
     });
   };
 
+  // used for event change in the input form
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     });
   }
 
+  // called when user hits add item
+  // calls handleAddItem and passes over the name and price
   doSubmit = () => {
     console.log(this.state.name, this.state.price);
     this.handleAddItem(this.state.name, this.state.price);

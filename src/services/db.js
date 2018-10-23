@@ -32,6 +32,10 @@ db.version(6).stores({
   items: "++id, name, price, qty",
   transactions: "++id, itemId -> items.id"
 });
+db.version(7).stores({
+  items: "++id, name, price, qty",
+  transactions: "++id, itemId -> items.id, date"
+});
 
 db.on();
 

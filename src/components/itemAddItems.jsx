@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+// similar to items.jsx except that we only need item name, price, and a delete button rendered
+// used in addItem.jsx and addItemItems.jsx
 class Item extends Component {
   render() {
     const { onDelete, item } = this.props;

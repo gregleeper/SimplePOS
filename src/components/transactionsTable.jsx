@@ -5,19 +5,20 @@ import { Link } from "react-router-dom";
 class TransactionsTable extends Component {
   columns = [
     { path: "id", label: "Transaction ID" },
-    { path: "total", label: "Total Charge" }
+    { path: "total", label: "Total Charge" },
+    { path: "date", label: "Date & Time" }
   ];
 
   render() {
-    const { transactions } = this.props;
+    // const { transactions } = this.props;
 
-    const totalSales = this.props.transactions
-      .map(t => t.total)
-      .reduce((accum, curr) => accum + curr, 0);
+    // const totalSales = this.props.transactions
+    //   .map(t => t.total)
+    //   .reduce((accum, curr) => accum + curr, 0);
 
     return (
       <React.Fragment>
-        <nav className="navbar sticky-top navbar-light bg-light">
+        {/* <nav className="navbar sticky-top navbar-light bg-light">
           <a className="navbar-brand">SimplePOS</a>
           <table>
             <thead>
@@ -34,9 +35,9 @@ class TransactionsTable extends Component {
           <Link to="/" className="btn btn-primary btn-sm m-2">
             Back to POS
           </Link>
-        </nav>
+        </nav> */}
 
-        <Table columns={this.columns} data={transactions} />
+        <Table columns={this.columns} data={this.props.transactions} />
       </React.Fragment>
     );
   }

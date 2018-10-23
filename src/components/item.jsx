@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+// renders each item as a card
 class Item extends Component {
   render() {
     const zero = this.props.item.qty === 0;
@@ -36,8 +37,9 @@ class Item extends Component {
     );
   }
   getBadgeClasses() {
+    const { qty } = this.props.item;
     let classes = "badge badge-";
-    classes += this.props.item.qty === 0 ? "warning" : "primary";
+    classes += qty === 0 ? "warning" : "primary";
     return classes;
   }
 

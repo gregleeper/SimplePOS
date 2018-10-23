@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+// displays the navbar using props passed down from pointofsale.jsx
+
 class NavBar extends Component {
   render() {
     const { addItem, totalItems, totalPrice, onReset } = this.props;
@@ -14,8 +16,8 @@ class NavBar extends Component {
           <span className="badge badge-pill badge-secondary m-1">
             ${totalPrice}
           </span>
-          <button onClick={onReset} className="btn btn-danger btn-md m-1">
-            C
+          <button onClick={onReset} className="btn btn-danger btn-md m-2">
+            Clear
           </button>
           <Link
             to={{ pathname: "/additem", state: { addItem } }}

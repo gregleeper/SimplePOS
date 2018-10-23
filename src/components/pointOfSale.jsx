@@ -4,10 +4,12 @@ import "../App.css";
 import Items from "./items";
 import db from "../services/db";
 
+// main entry point for the app
+// mounts the items db table and loads it into state
+
 class PointOfSale extends Component {
   state = {
-    items: [],
-    tranactions: []
+    items: []
   };
 
   componentDidMount() {
@@ -16,12 +18,6 @@ class PointOfSale extends Component {
       .then(items => {
         this.setState({ items });
         console.log(this.state.items);
-      });
-    db.table("totals")
-      .toArray()
-      .then(totals => {
-        this.setState({ totals });
-        console.log(this.state.totals);
       });
   }
 
@@ -107,7 +103,7 @@ class PointOfSale extends Component {
   };
 
   render() {
-    //Todo these two idtem need to be fixed.
+    // Figures total item count and total price for display in NavBar
     const totalItems = this.state.items
       .map(m => m.qty)
       .reduce((accum, curr) => accum + curr, 0);
@@ -115,6 +111,12 @@ class PointOfSale extends Component {
       (accum, curr) => (accum += curr.qty * curr.price),
       0
     );
+
+    const emptyItemsState = () => {
+      if (this.state.items.length === 0) {
+        return <p>Tap "Add Items" to add items to be sold. </p>;
+      }
+    };
 
     return (
       <React.Fragment>
@@ -126,6 +128,7 @@ class PointOfSale extends Component {
           addItem={this.handleAddItem}
         />
         <main className="container">
+          <div>{emptyItemsState()}</div>
           <div className="row">
             <div className="col-sm-12">
               <Items

@@ -3,9 +3,13 @@ import db from "../services/db";
 import ItemsTable from "./itemsTable";
 import { Link } from "react-router-dom";
 
+// Rendered when user chooses the Total button
+// mounts the items db table using each item > qty 0
 class CompleteTransaction extends Component {
-  state = { items: [], total: 0 };
+  state = { items: [], total: 0, date: "" };
 
+  // db call to items table where qty above 0
+  // sets state
   componentDidMount() {
     db.table("items")
       .where("qty")
@@ -17,17 +21,18 @@ class CompleteTransaction extends Component {
       });
   }
 
+  // computes total price and adds the items state to the
+  // transactions table. The transaction includes each item
+  // and its qty and the total price
   handleCompleteTransaction = () => {
     const items = { ...this.state.items };
-    console.log("copied items state", items);
     const totalPrice = this.state.items.reduce(
       (accum, curr) => (accum += curr.qty * curr.price),
       0
     );
-    console.log(totalPrice);
-    console.log(items);
+    const now = new Date().toLocaleString();
     db.transaction("rw", db.transactions, function() {
-      db.transactions.put({ items, total: totalPrice });
+      db.transactions.put({ items, total: totalPrice, date: now });
     }).catch(function(err) {
       console.error(err.stack || err);
     });
@@ -36,6 +41,8 @@ class CompleteTransaction extends Component {
     setTimeout(this.doSubmit, 100);
   };
 
+  // sets each item qty to 0 and records that in the db table as well
+  // sends user back to pos screen with item qtys at 0
   doSubmit = () => {
     const items = this.state.items.map(i => {
       i.qty = 0;
