@@ -100,7 +100,7 @@ class AddItem extends Component {
             >
               Add Item
             </button>
-            <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
+            <Link to="/" className="btn btn-primary btn-sm m-2">
               Back to POS
             </Link>
           </form>

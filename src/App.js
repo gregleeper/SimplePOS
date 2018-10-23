@@ -12,9 +12,9 @@ class App extends Component {
       <React.Fragment>
         <Switch>
           <Route path="/total" component={CompleteTransaction} />
-          <Route path="/pointofsale" component={PointOfSale} />
           <Route path="/additem" component={AddItem} />
           <Route path="/review" component={Transactions} />
+          <Route exact path={"/"} component={PointOfSale} />
           <Redirect path="/" exact to="/pointofsale" />
         </Switch>
       </React.Fragment>

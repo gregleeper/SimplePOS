@@ -31,7 +31,7 @@ class TransactionsTable extends Component {
               </tr>
             </tbody>
           </table>
-          <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
+          <Link to="/" className="btn btn-primary btn-sm m-2">
             Back to POS
           </Link>
         </nav>

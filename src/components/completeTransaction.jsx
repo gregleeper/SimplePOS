@@ -50,7 +50,7 @@ class CompleteTransaction extends Component {
         id: items[i].id
       });
     }
-    this.props.history.push("/pointofsale");
+    this.props.history.push("/");
   };
 
   render() {
@@ -67,7 +67,7 @@ class CompleteTransaction extends Component {
       <React.Fragment>
         <nav className="navbar sticky-top navbar-light bg-light">
           <a className="navbar-brand">SimplePOS</a>
-          <Link to="/pointofsale" className="btn btn-primary btn-sm m-2">
+          <Link to="/" className="btn btn-primary btn-sm m-2">
             Back to POS
           </Link>
         </nav>
