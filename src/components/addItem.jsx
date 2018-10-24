@@ -28,6 +28,7 @@ class AddItem extends Component {
       .then(items => {
         this.setState({ items });
       });
+    this.nameInput.focus();
   }
 
   // uses lifecycle component to render items on lifecycle update
@@ -39,7 +40,6 @@ class AddItem extends Component {
         this.setState({ items });
       });
   }
-
   // inserts the obejct inputted by the user into the items table
   // and sets the qty to 0
   handleAddItem(name, price) {
@@ -147,6 +147,9 @@ class AddItem extends Component {
                   type="text"
                   className="form-control m-6"
                   name="name"
+                  ref={input => {
+                    this.nameInput = input;
+                  }}
                   onChange={evt => this.handleChange(evt)}
                 />
               </label>
