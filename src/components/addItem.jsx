@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import db from "../services/db";
 import Items from "./addItemItems";
 import "../App.css";
+import { FormErrors } from "./formErrors";
 
-// This class is used to input items to be sold from the user
+// This class is used to input items to be sold
 
 class AddItem extends Component {
   constructor() {
@@ -68,9 +69,49 @@ class AddItem extends Component {
   };
 
   // used for event change in the input form
-  handleChange(evt) {
+  handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  }
+
+  // validates each data field
+  // checks for non empty string in Name field
+  // and requires a price number structure like 1.00 for price field
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let nameValid = this.state.nameValid;
+    let priceValid = this.state.priceValid;
+
+    switch (fieldName) {
+      case "name":
+        nameValid = value.length > 0;
+        fieldValidationErrors.name = nameValid ? "" : " is invalid";
+        break;
+      case "price":
+        priceValid = value.match(/\d+\.\d{1,2}/);
+        fieldValidationErrors.price = priceValid
+          ? ""
+          : " price not valid, example 1.00 or 2.50";
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        nameValid: nameValid,
+        priceValid: priceValid
+      },
+      this.validateForm
+    );
+  }
+
+  validateForm() {
     this.setState({
-      [evt.target.name]: evt.target.value
+      formValid: this.state.nameValid && this.state.priceValid
     });
   }
 
@@ -79,6 +120,9 @@ class AddItem extends Component {
   doSubmit = () => {
     console.log(this.state.name, this.state.price);
     this.handleAddItem(this.state.name, this.state.price);
+
+    // resets the formValid field back false after submission
+    this.setState({ formValid: false });
     document.getElementById("addItem").reset();
   };
 
@@ -87,7 +131,13 @@ class AddItem extends Component {
       <React.Fragment>
         <nav className="navbar sticky-top navbar-light bg-light">
           <a className="navbar-brand">SimplePOS</a>
+          <Link to="/" className="btn btn-primary btn-sm m-2">
+            Back to POS
+          </Link>
         </nav>
+        <div className="panel panel-default">
+          <FormErrors formErrors={this.state.formErrors} />
+        </div>
         <div>
           <form id="addItem" onSubmit={this.doSubmit}>
             <div className="form-group m-6">
@@ -115,13 +165,11 @@ class AddItem extends Component {
             <button
               type="button"
               className="btn btn-primary btn-sm m-2"
+              disabled={!this.state.formValid}
               onClick={this.doSubmit}
             >
               Add Item
             </button>
-            <Link to="/" className="btn btn-primary btn-sm m-2">
-              Back to POS
-            </Link>
           </form>
           <div className="container">
             <div className="row">
