@@ -15,7 +15,7 @@ class App extends Component {
           <Route path="/additem" component={AddItem} />
           <Route path="/review" component={Transactions} />
           <Route exact path={"/"} component={PointOfSale} />
-          <Redirect path="/" exact to="/pointofsale" />
+          <Redirect path="/pointofsale" exact to="/" />
         </Switch>
       </React.Fragment>
     );
